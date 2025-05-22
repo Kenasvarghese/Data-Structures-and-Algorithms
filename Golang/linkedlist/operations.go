@@ -1,14 +1,5 @@
 package linkedlist
 
-// Prepend adds a new node to the beginning of the list
-func (l *LinkedList) Prepend(value int) {
-	l.Head = &Node{Value: value, Next: l.Head}
-	if l.Tail == nil {
-		l.Tail = l.Head
-	}
-	l.Length++
-}
-
 // Append adds a new node to the end of the list
 func (l *LinkedList) Append(value int) {
 	if l.Tail == nil {
@@ -18,6 +9,15 @@ func (l *LinkedList) Append(value int) {
 	}
 	l.Tail.Next = &Node{Value: value}
 	l.Tail = l.Tail.Next
+	l.Length++
+}
+
+// Prepend adds a new node to the beginning of the list
+func (l *LinkedList) Prepend(value int) {
+	l.Head = &Node{Value: value, Next: l.Head}
+	if l.Tail == nil {
+		l.Tail = l.Head
+	}
 	l.Length++
 }
 
@@ -92,4 +92,39 @@ func (l *LinkedList) Insert(index int, value int) {
 	}
 	*node = Node{Value: value, Next: &Node{Value: node.Value, Next: node.Next}}
 	l.Length++
+}
+
+// Remove removes the node at the given index
+func (l *LinkedList) Remove(index int) int {
+	value := -1
+	if index == 0 {
+		value = l.PopFirst()
+		return value
+	}
+	if index == l.Length-1 {
+		value = l.Pop()
+		return value
+	}
+	node := l.Get(index)
+	if node == nil {
+		return -1
+	}
+	value = node.Value
+	*node = *node.Next
+	l.Length--
+	return value
+}
+
+// Reverse reverses the list
+func (l *LinkedList) Reverse() {
+	prev := (*Node)(nil)
+	current := l.Head
+	l.Tail = l.Head
+	for current != nil {
+		next := current.Next
+		current.Next = prev
+		prev = current
+		current = next
+	}
+	l.Head = prev
 }
