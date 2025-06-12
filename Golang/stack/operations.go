@@ -5,39 +5,44 @@ import "fmt"
 // Push adds a new value to the top of the stack
 func (s *stack) Push(value int) {
 	newNode := &node{
-		Value: value,
-		Next:  s.Top,
+		value: value,
+		next:  s.top,
 	}
-	s.Top = newNode
-	s.Height++
+	s.top = newNode
+	s.height++
 }
 
 // Pop removes the top value from the stack
 func (s *stack) Pop() int {
-	if s.Top == nil {
+	if s.top == nil {
 		return -1
 	}
-	val := s.Top.Value
-	s.Top = s.Top.Next
-	s.Height--
+	val := s.top.value
+	s.top = s.top.next
+	s.height--
 	return val
 }
 
 // Peek returns the top value from the stack without removing it
 func (s *stack) Peek() int {
-	if s.Top == nil {
+	if s.top == nil {
 		return -1
 	}
-	return s.Top.Value
+	return s.top.value
+}
+
+// Height returns the height of the stack
+func (s *stack) Height() int {
+	return s.height
 }
 
 // Print prints the stack
 func (s *stack) Print() {
-	temp := s.Top
+	temp := s.top
 	fmt.Println("Stack:")
 	for temp != nil {
-		fmt.Println(temp.Value)
-		temp = temp.Next
+		fmt.Println(temp.value)
+		temp = temp.next
 	}
 	fmt.Println("End of Stack")
 }

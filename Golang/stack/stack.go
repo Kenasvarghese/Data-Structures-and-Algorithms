@@ -5,17 +5,18 @@ type Stack interface {
 	Push(value int)
 	Pop() int
 	Peek() int
+	Height() int
 	Print()
 }
 
 type node struct {
-	Value int
-	Next  *node
+	value int
+	next  *node
 }
 
 type stack struct {
-	Top    *node
-	Height int
+	top    *node
+	height int
 }
 
 // NewStack creates a new stack with the given values
@@ -30,8 +31,8 @@ func NewStack(values []int) Stack {
 }
 
 type arrayStack struct {
-	Values []int
-	Length int
+	values []int
+	length int
 }
 
 // NewArrayStack creates a new array stack with the given values and size
@@ -39,8 +40,8 @@ type arrayStack struct {
 // and we don't need to resize the underlying array
 func NewArrayStack(values []int, size int) Stack {
 	stack := &arrayStack{
-		Values: make([]int, 0, size),
-		Length: 0,
+		values: make([]int, 0, size),
+		length: 0,
 	}
 	for _, value := range values {
 		stack.Push(value)
