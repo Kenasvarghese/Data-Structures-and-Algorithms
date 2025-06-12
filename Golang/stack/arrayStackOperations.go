@@ -4,34 +4,39 @@ import "fmt"
 
 // Push adds a new value to the top of the stack
 func (s *arrayStack) Push(value int) {
-	s.Values = append(s.Values, value)
-	s.Length++
+	s.values = append(s.values, value)
+	s.length++
 }
 
 // Pop removes the top value from the stack
 func (s *arrayStack) Pop() int {
-	if s.Length == 0 {
+	if s.length == 0 {
 		return -1
 	}
-	val := s.Values[s.Length-1]
-	s.Values = s.Values[:s.Length-1]
-	s.Length--
+	val := s.values[s.length-1]
+	s.values = s.values[:s.length-1]
+	s.length--
 	return val
 }
 
 // Peek returns the top value from the stack without removing it
 func (s *arrayStack) Peek() int {
-	if s.Length == 0 {
+	if s.length == 0 {
 		return -1
 	}
-	return s.Values[s.Length-1]
+	return s.values[s.length-1]
+}
+
+// Height returns the height of the stack
+func (s *arrayStack) Height() int {
+	return s.length
 }
 
 // Print prints the stack
 func (s *arrayStack) Print() {
 	fmt.Println("Stack:")
-	for _, val := range s.Values {
-		fmt.Println(val)
+	for i := s.length - 1; i >= 0; i-- {
+		fmt.Println(s.values[i])
 	}
 	fmt.Println("End of Stack")
 }
